@@ -7,6 +7,9 @@
   <a href="https://travis-ci.com/briochemc/DualMatrixTools.jl">
     <img alt="Build Status" src="https://travis-ci.com/briochemc/DualMatrixTools.jl.svg?branch=master">
   </a>
+  <a href="https://travis-ci.org/briochemc/DualMatrixTools.jl">
+    <img alt="Build Status" src="https://travis-ci.org/briochemc/DualMatrixTools.jl.svg?branch=master">
+  </a>
   <a href='https://coveralls.io/github/briochemc/DualMatrixTools.jl?branch=master'>
     <img src='https://coveralls.io/repos/github/briochemc/DualMatrixTools.jl/badge.svg?branch=master' alt='Coverage Status' />
   </a>
