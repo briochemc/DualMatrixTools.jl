@@ -1,0 +1,6 @@
+authors = ["Benoit Pasquier <pasquieb@uci.edu>"]
+name = "DualMatrixTools"
+uuid = "ecce4fbc-e76b-11e8-3191-a744feec026c"
+version = "0.1.0"
+
+[deps]
