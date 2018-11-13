@@ -54,9 +54,9 @@ See `DualFactors` for details.
 """
 function \(M::DualFactors, y::AbstractVecOrMat{Float64})
     A, B = M.Af, M.B
-    A⁻¹a = A \ a
-    A⁻¹BA⁻¹a = A \ (B * A⁻¹a)
-    return A⁻¹a - ε * A⁻¹BA⁻¹a
+    A⁻¹y = A \ y
+    A⁻¹BA⁻¹y = A \ (B * A⁻¹y)
+    return A⁻¹y - ε * A⁻¹BA⁻¹y
 end
 
 """
