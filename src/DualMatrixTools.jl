@@ -66,7 +66,7 @@ Backsubstitution for `DualFactors`.
 See `DualFactors` for details.
 """
 function \(M::DualFactors, y::AbstractVecOrMat{Dual128})
-    a, b = realpart.(y), dualpart.(y))
+    a, b = realpart.(y), dualpart.(y)
     A, B = M.Af, M.B
     A⁻¹a = A \ a
     A⁻¹BA⁻¹a = A \ (B * A⁻¹a)
