@@ -59,5 +59,8 @@ Note the same idea extends to hyper dual numbers (see the [HyperDualMatrixTools.
     ```
 
 
+## Citation
 
+If you use this package, please cite it!
+You can export the citation by first clicking on the DOI badge at the top, which links to the Zenodo record of the package, and then clicking on the citation format you want in the "Export" box at the bottom of the page.
 
