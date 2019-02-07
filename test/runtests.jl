@@ -48,3 +48,10 @@ Mf = factorize(M)
 @test M * (Mf \ x) ≈ x
 @test A * (Af \ y) ≈ y
 @test M * (Mf \ y) ≈ y
+
+# Check that isapprox is used in all the ways (for code coverage)
+A2 = A + ε * B * 0
+@test A2 ≈ A
+@test A ≈ A2
+@test (1.0 + 0ε) ≈ 1.0
+@test 1.0 ≈ (1.0 + 0ε)
