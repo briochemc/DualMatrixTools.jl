@@ -37,12 +37,12 @@ function factorize(M::Array{Dual128,2})
 end
 
 """
-    factorize(M::SparseMatrixCSC{Dual128,Int64})
+    factorize(M::SparseMatrixCSC{Dual128,<:Integer})
 
 Efficient factorization of dual-valued sparse matrices.
 See `DualFactors` for details.
 """
-function factorize(M::SparseMatrixCSC{Dual128,Int64})
+function factorize(M::SparseMatrixCSC{Dual128,<:Integer})
     return DualFactors(factorize(realpart.(M)), dualpart.(M))
 end
 
@@ -89,6 +89,15 @@ end
 Backslash (factorization and backsubstitution) for Dual-valued matrix `M`.
 """
 function \(M::Array{Dual128,2}, y::AbstractVecOrMat)
+    return factorize(M) \ y
+end
+
+"""
+    \\(M::SparseMatrixCSC{Dual128,<:Integer}, y::AbstractVecOrMat)
+
+Backslash (factorization and backsubstitution) for Dual-valued matrix `M`.
+"""
+function \(M::SparseMatrixCSC{Dual128,<:Integer}, y::AbstractVecOrMat)
     return factorize(M) \ y
 end
 
