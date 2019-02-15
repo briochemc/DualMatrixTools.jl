@@ -83,6 +83,15 @@ function \(Af::Factorization{Float64}, y::AbstractVecOrMat{Dual128})
     return (Af \ realpart.(y)) + ε * (Af \ dualpart.(y))
 end
 
+"""
+    \\(M::Array{Dual128,2}, y::AbstractVecOrMat)
+
+Backslash (factorization and backsubstitution) for Dual-valued matrix `M`.
+"""
+function \(M::Array{Dual128,2}, y::AbstractVecOrMat)
+    return factorize(M) \ y
+end
+
 function isapprox(x::AbstractVecOrMat{Dual128}, y::AbstractVecOrMat{Dual128})
     bigx = [realpart.(x) dualpart.(x)]
     bigy = [realpart.(y) dualpart.(y)]
