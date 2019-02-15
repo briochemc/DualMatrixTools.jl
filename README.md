@@ -44,20 +44,24 @@ Note the same idea extends to hyper dual numbers (see the [HyperDualMatrixTools.
 
 ## Usage
 
-- Create your dual-valued matrix `M`:
+1. Create your dual-valued matrix `M`:
     ```julia
     julia> M = A + ε * B
     ```
+    
+2. Apply `\` to solve systems of the type `M * x = b`
+    - without factorization:
+        ```julia
+        julia> x = M \ b
+        ```
 
-- Factorize `M`:
-    ```julia
-    julia> Mf = factorize(M)
-    ```
-
-- Apply `\` to solve systems of the type `M * x = b`
-    ```julia
-    julia> x = Mf \ b
-    ```
+    - or better, with prior factorization:
+        ```julia
+        julia> Mf = factorize(M)
+        
+        julia> x = Mf \ b
+        ```
+        (This is better in case you want to solve for another `b`!)
 
 
 ## Citation
