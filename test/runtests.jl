@@ -6,15 +6,13 @@ using DualNumbers, LinearAlgebra, SparseArrays, SuiteSparse
 @testset "Testing DualMatrixTools" begin
     # Chose a size for matrices
     n = 10
+    y = randn(n)               # real-valued vector
+    x = randn(n, 2) * [1.0, ε] # dual-valued vector
+    A = randn(n, n)            # real-valued matrix
+    B = randn(n, n)            # real-valued matrix
 
     @testset "Testing full matrices" begin
-        # Create a real-valued random vector and matrix
-        y = randn(n)
-        A = randn(n, n)
-
-        # Create a hyperdual-valued random vector and matrix
-        x = randn(n, 2) * [1.0, ε]
-        B = randn(n, n)
+        # Create a dual-valued matrix
         M = A + ε * B
 
         # Check that `\` works without factorization
@@ -42,10 +40,10 @@ using DualNumbers, LinearAlgebra, SparseArrays, SuiteSparse
 
     @testset "Testing sparse matrices" begin
         # Create a real-valued sparse matrix
-        A = sparse(randn(n, n))
+        A = sparse(A)
 
         # Create a hyperdual-valued sparse matrix
-        B = sparse(randn(n, n))
+        B = sparse(B)
         M = A + ε * B
 
         # Check that `\` works without factorization
