@@ -45,7 +45,7 @@ var documenterSearchIndex = {"docs": [
     "page": "DualMatrixTools.jl Documentation",
     "title": "LinearAlgebra.factorize",
     "category": "function",
-    "text": "factorize(M::Array{Dual128,2})\n\nEfficient factorization of dual-valued matrices. See DualFactors for details.\n\n\n\n\n\nfactorize(M::SparseMatrixCSC{Dual128,Int64})\n\nEfficient factorization of dual-valued sparse matrices. See DualFactors for details.\n\n\n\n\n\n"
+    "text": "factorize(M::Array{Dual128,2})\n\nEfficient factorization of dual-valued matrices. See DualFactors for details.\n\n\n\n\n\nfactorize(M::SparseMatrixCSC{Dual128,<:Integer})\n\nEfficient factorization of dual-valued sparse matrices. See DualFactors for details.\n\n\n\n\n\n"
 },
 
 {
@@ -53,7 +53,7 @@ var documenterSearchIndex = {"docs": [
     "page": "DualMatrixTools.jl Documentation",
     "title": "Base.:\\",
     "category": "function",
-    "text": "\\(M::DualFactors, y::AbstractVecOrMat{Float64})\n\nBacksubstitution for DualFactors. See DualFactors for details.\n\n\n\n\n\n\\(M::DualFactors, y::AbstractVecOrMat{Dual128})\n\nBacksubstitution for DualFactors. See DualFactors for details.\n\n\n\n\n\n\\(Af::Factorization{Float64}, y::AbstractVecOrMat{Dual128})\n\nBacksubstitution for Dual-valued RHS.\n\n\n\n\n\n"
+    "text": "\\(M::DualFactors, y::AbstractVecOrMat{Float64})\n\nBacksubstitution for DualFactors. See DualFactors for details.\n\n\n\n\n\n\\(M::DualFactors, y::AbstractVecOrMat{Dual128})\n\nBacksubstitution for DualFactors. See DualFactors for details.\n\n\n\n\n\n\\(Af::Factorization{Float64}, y::AbstractVecOrMat{Dual128})\n\nBacksubstitution for Dual-valued RHS.\n\n\n\n\n\n\\(M::Array{Dual128,2}, y::AbstractVecOrMat)\n\nBackslash (factorization and backsubstitution) for Dual-valued matrix M.\n\n\n\n\n\n\\(M::SparseMatrixCSC{Dual128,<:Integer}, y::AbstractVecOrMat)\n\nBackslash (factorization and backsubstitution) for Dual-valued matrix M.\n\n\n\n\n\n"
 },
 
 {
