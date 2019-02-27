@@ -21,10 +21,12 @@ In fact, the inverse of ``M`` is given by
 ``M^{-1} = (I - \\varepsilon A^{-1} B) A^{-1}``.
 """
 mutable struct DualFactors
-    Af::Factorization # the factors of the real part
-    B                 # the ε₁ part
+    Af # the factors of the real part
+    B  # the ε part
 end
 
+Base.adjoint(M::DualFactors) = DualFactors(M.Af', M.B')
+Base.transpose(M::DualFactors) = DualFactors(transpose(M.Af), transpose(M.B))
 
 """
     factorize(M::Array{Dual128,2})
@@ -58,6 +60,8 @@ function \(M::DualFactors, y::AbstractVecOrMat{Float64})
     A⁻¹BA⁻¹y = A \ (B * A⁻¹y)
     return A⁻¹y - ε * A⁻¹BA⁻¹y
 end
+
+
 
 """
     \\(M::DualFactors, y::AbstractVecOrMat{Dual128})
