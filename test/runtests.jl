@@ -6,111 +6,123 @@ using DualNumbers, LinearAlgebra, SparseArrays, SuiteSparse
 @testset "Testing DualMatrixTools" begin
     # Chose a size for matrices
     n = 10
-    y = randn(n)               # real-valued vector
-    x = randn(n, 2) * [1.0, ε] # dual-valued vector
-    A = randn(n, n)            # real-valued matrix
-    B = randn(n, n)            # real-valued matrix
+
+    x = randn(n)     # real-valued │
+    y = randn(n)     # real-valued ├─ vector
+    z = x + ε * y    # dual-valued │
+
+    A = randn(n, n)  # real-valued │
+    B = randn(n, n)  # real-valued ├─ matrix
+    M = A + ε * B    # dual-valued │
 
     @testset "Testing full matrices" begin
-        # Create a dual-valued matrix
-        M = A + ε * B
+        @testset "Testing `\\` without factorization" begin
+            @test A \ (A * x) ≈ x
+            @test M \ (M * x) ≈ x
+            @test A \ (A * z) ≈ z
+            @test M \ (M * z) ≈ z
+            @test A * (A \ x) ≈ x
+            @test M * (M \ x) ≈ x
+            @test A * (A \ z) ≈ z
+            @test M * (M \ z) ≈ z
+        end
 
-        # Check that `\` works without factorization
-        @test A \ (A * x) ≈ x
-        @test M \ (M * x) ≈ x
-        @test A \ (A * y) ≈ y
-        @test M \ (M * y) ≈ y
-        @test A * (A \ x) ≈ x
-        @test M * (M \ x) ≈ x
-        @test A * (A \ y) ≈ y
-        @test M * (M \ y) ≈ y
-
-        # Check that `\` works with factorization
-        Af = factorize(A)
-        Mf = factorize(M)
-        @test Af \ (A * x) ≈ x
-        @test Mf \ (M * x) ≈ x
-        @test Af \ (A * y) ≈ y
-        @test Mf \ (M * y) ≈ y
-        @test A * (Af \ x) ≈ x
-        @test M * (Mf \ x) ≈ x
-        @test A * (Af \ y) ≈ y
-        @test M * (Mf \ y) ≈ y
+        @testset "Testing `\\` with factorization" begin
+            Af = factorize(A)
+            Mf = factorize(M)
+            @test Af \ (A * x) ≈ x
+            @test Mf \ (M * x) ≈ x
+            @test Af \ (A * z) ≈ z
+            @test Mf \ (M * z) ≈ z
+            @test A * (Af \ x) ≈ x
+            @test M * (Mf \ x) ≈ x
+            @test A * (Af \ z) ≈ z
+            @test M * (Mf \ z) ≈ z
+        end
     end
 
     @testset "Testing sparse matrices" begin
-        # Create a real-valued sparse matrix
-        A = sparse(A)
+        spA = sparse(A)  # │
+        spB = sparse(B)  # ├─ sparse matrices
+        spM = sparse(M)  # │
 
-        # Create a hyperdual-valued sparse matrix
-        B = sparse(B)
-        M = A + ε * B
+        @testset "Check that `ε * A` works" begin
+            @test spM ≈ spA + ε * spB
+        end
 
-        # Check that `\` works without factorization
-        @test A \ (A * x) ≈ x
-        @test M \ (M * x) ≈ x
-        @test A \ (A * y) ≈ y
-        @test M \ (M * y) ≈ y
-        @test A * (A \ x) ≈ x
-        @test M * (M \ x) ≈ x
-        @test A * (A \ y) ≈ y
-        @test M * (M \ y) ≈ y
+        @testset "Check that `\\` works without factorization" begin
+            @test spA \ (spA * x) ≈ x
+            @test spM \ (spM * x) ≈ x
+            @test spA \ (spA * z) ≈ z
+            @test spM \ (spM * z) ≈ z
+            @test spA * (spA \ x) ≈ x
+            @test spM * (spM \ x) ≈ x
+            @test spA * (spA \ z) ≈ z
+            @test spM * (spM \ z) ≈ z
+        end
 
-        # Check that `\` works with factorization
-        Af = factorize(A)
-        Mf = factorize(M)
-        @test Af \ (A * x) ≈ x
-        @test Mf \ (M * x) ≈ x
-        @test Af \ (A * y) ≈ y
-        @test Mf \ (M * y) ≈ y
-        @test A * (Af \ x) ≈ x
-        @test M * (Mf \ x) ≈ x
-        @test A * (Af \ y) ≈ y
-        @test M * (Mf \ y) ≈ y
+        @testset "Check that `\\` works with factorization" begin
+            spAf = factorize(spA)
+            spMf = factorize(spM)
+            @test spAf \ (spA * x) ≈ x
+            @test spMf \ (spM * x) ≈ x
+            @test spAf \ (spA * z) ≈ z
+            @test spMf \ (spM * z) ≈ z
+            @test spA * (spAf \ x) ≈ x
+            @test spM * (spMf \ x) ≈ x
+            @test spA * (spAf \ z) ≈ z
+            @test spM * (spMf \ z) ≈ z
+        end
     end
 
-    @testset "Testing adjoint and transpose" for f in (:adjoint, :transpose)
-        # Create a real-valued sparse matrix
-        A = sparse(A)
+    # TODO Add tests specific to `lu`, `qr`, `cholesky`, etc.
 
-        # Create a hyperdual-valued sparse matrix
-        B = sparse(B)
-        M = A + ε * B
+    @testset "Testing $f" for f in [:adjoint, :transpose]
+        spA = sparse(A)  # │
+        spB = sparse(B)  # ├─ sparse matrices
+        spM = sparse(M)  # │
 
         # Adjoints / transposes
-        y2 = randn(n)               # real-valued vector
-        x2 = randn(n, 2) * [1.0, ε] # dual-valued vector
+        x₂ = randn(n)     # real-valued │
+        y₂ = randn(n)     # real-valued ├─ vector
+        z₂ = x₂ + ε * y₂    # dual-valued │
 
-        @eval( :( ay  = $f(y)  ) )
-        @eval( :( ax  = $f(x)  ) )
-        @eval( :( ay2 = $f(y2) ) )
-        @eval( :( ax2 = $f(x2) ) )
-        @eval( :( aA  = $f(A)  ) )
-        @eval( :( aM  = $f(M)  ) )
+        @eval begin
+            x₂′ = $f($x₂)
+            x′ = $f($x)
+            z₂′ = $f($z₂)
+            z′ = $f($z)
+            A′  = $f($A)
+            M′  = $f($M)
+            spA′  = $f($spA)
+            spM′  = $f($spM)
+        end
 
         # Check that `\` works with adjoints
-        @test (ax2 * (A \ x)) ≈ (x * (aA \ ax2))
-        @test (ay2 * (A \ x)) ≈ (x * (aA \ ay2))
-        @test (ax2 * (M \ x)) ≈ (x * (aM \ ax2))
-        @test (ay2 * (M \ x)) ≈ (x * (aM \ ay2))
-        @test (ax2 * (A \ y)) ≈ (y * (aA \ ax2))
-        @test (ay2 * (A \ y)) ≈ (y * (aA \ ay2))
-        @test (ax2 * (M \ y)) ≈ (y * (aM \ ax2))
-        @test (ay2 * (M \ y)) ≈ (y * (aM \ ay2))
+        @testset "Check that `\\` works with $f" begin
+            @test (x₂′ * (A \ x)) ≈ (x′ * (A′ \ x₂))
+            @test (z₂′ * (M \ z)) ≈ (z′ * (M′ \ z₂))
+            @test (x₂′ * (spA \ x)) ≈ (x′ * (spA′ \ x₂))
+            @test (z₂′ * (spM \ z)) ≈ (z′ * (spM′ \ z₂))
+        end
 
         # Check that `\` works with adjoints of factorized versions
         Af = factorize(A)
         Mf = factorize(M)
-        @eval( :( aAf  = $f(Af)  ) )
-        @eval( :( aMf  = $f(Mf)  ) )
-        @test (ax2 * (Af \ x)) ≈ (x * (aAf \ ax2))
-        @test (ay2 * (Af \ x)) ≈ (x * (aAf \ ay2))
-        @test (ax2 * (Mf \ x)) ≈ (x * (aMf \ ax2))
-        @test (ay2 * (Mf \ x)) ≈ (x * (aMf \ ay2))
-        @test (ax2 * (Af \ y)) ≈ (y * (aAf \ ax2))
-        @test (ay2 * (Af \ y)) ≈ (y * (aAf \ ay2))
-        @test (ax2 * (Mf \ y)) ≈ (y * (aMf \ ax2))
-        @test (ay2 * (Mf \ y)) ≈ (y * (aMf \ ay2))
+        spAf = factorize(spA)
+        spMf = factorize(spM)
+        @eval begin
+            Af′  = $f($Af)
+            Mf′  = $f($Mf)
+            spAf′  = $f($spAf)
+            spMf′  = $f($spMf)
+        end
+        @testset "Check that factorized version with $f" begin
+            @test (x₂′ * (Af \ x)) ≈ (x′ * (Af′ \ x₂))
+            @test (z₂′ * (Mf \ z)) ≈ (z′ * (Mf′ \ z₂))
+            @test (x₂′ * (spAf \ x)) ≈ (x′ * (spAf′ \ x₂))
+            @test (z₂′ * (spMf \ z)) ≈ (z′ * (spMf′ \ z₂))
+        end
     end
 
     @testset "Testing isapprox function" begin
@@ -119,5 +131,10 @@ using DualNumbers, LinearAlgebra, SparseArrays, SuiteSparse
         @test A ≈ A2
         @test (1.0 + 0ε) ≈ 1.0
         @test 1.0 ≈ (1.0 + 0ε)
+
+        @test ~(M ≈ M .+ ε)
+
     end
 end
+
+println("All the DualMatrixTools tests have passed!")

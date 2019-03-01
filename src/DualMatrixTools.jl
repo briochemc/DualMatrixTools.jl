@@ -2,9 +2,21 @@ module DualMatrixTools
 
 using DualNumbers, LinearAlgebra, SparseArrays, SuiteSparse
 
-import LinearAlgebra.factorize
-import Base.\
-import Base.isapprox
+# Personal add-on: Allow for multiplication by ε of a sparse matrix
+import Base.*
+"""
+    *(d::Dual, M::SparseMatrixCSC)
+
+Exactly multiplies a sparse matrix `M` by the dual number `d`.
+This overload allows `ε * M` to be non-zero.
+(This is to correct the effect of the `ε == 0` feature in DualNumbers.jl,
+which silently removes non-zeros from sparse matrices when multiplied by `ε`.)
+"""
+function *(d::Dual, M::SparseMatrixCSC)
+    i, j, v = findnz(M)
+    return sparse(i, j, d .* v)
+end
+export *
 
 """
     DualFactors
@@ -20,34 +32,47 @@ This is because only the factors of the real part are needed when solving a line
 In fact, the inverse of ``M`` is given by
 ``M^{-1} = (I - \\varepsilon A^{-1} B) A^{-1}``.
 """
-mutable struct DualFactors
-    Af # the factors of the real part
-    B  # the ε part
+mutable struct DualFactors{TAf,TB}
+    Af::TAf # the factors of the real part
+    B ::TB  # the ε part
+end
+export DualFactors
+
+# Factorization functions
+for f in (:lu, :qr, :cholesky, :factorize)
+    @eval begin
+        import LinearAlgebra: $f
+        """
+        $($f)(M::SparseMatrixCSC{<:Dual,<:Int})
+
+        Invokes `$($f)` on just the real part of `M` and stores it along with the dual part into a `DualFactors` object.
+        """
+        $f(M::SparseMatrixCSC{<:Dual,<:Int}) = DualFactors($f(realpart.(M)), dualpart.(M))
+        """
+        $($f)(M::Array{<:Dual,2})
+
+        Invokes `$($f)` on just the real part of `M` and stores it along with the dual part into a `DualFactors` object.
+        """
+        $f(M::Array{<:Dual,2}) = DualFactors($f(realpart.(M)), dualpart.(M))
+        export $f
+    end
 end
 
-Base.adjoint(M::DualFactors) = DualFactors(M.Af', M.B')
-Base.transpose(M::DualFactors) = DualFactors(transpose(M.Af), transpose(M.B))
+# Adjoint and transpose definitions for `DualFactors`
+for f in (:adjoint, :transpose)
+    @eval begin
+        import Base: $f
+        """
+        $($f)(M::DualFactors)
 
-"""
-    factorize(M::Array{Dual128,2})
-
-Efficient factorization of dual-valued matrices.
-See `DualFactors` for details.
-"""
-function factorize(M::Array{Dual128,2})
-    return DualFactors(factorize(realpart.(M)), dualpart.(M))
+        Invokes `$($f)` on both `M.Af` and `M.B` and returns them into a new `DualFactors` object.
+        """
+        $f(M::DualFactors) = DualFactors($f(M.Af), $f(M.B))
+        export $f
+    end
 end
 
-"""
-    factorize(M::SparseMatrixCSC{Dual128,<:Integer})
-
-Efficient factorization of dual-valued sparse matrices.
-See `DualFactors` for details.
-"""
-function factorize(M::SparseMatrixCSC{Dual128,<:Integer})
-    return DualFactors(factorize(realpart.(M)), dualpart.(M))
-end
-
+import Base.\
 """
     \\(M::DualFactors, y::AbstractVecOrMat{Float64})
 
@@ -60,8 +85,6 @@ function \(M::DualFactors, y::AbstractVecOrMat{Float64})
     A⁻¹BA⁻¹y = A \ (B * A⁻¹y)
     return A⁻¹y - ε * A⁻¹BA⁻¹y
 end
-
-
 
 """
     \\(M::DualFactors, y::AbstractVecOrMat{Dual128})
@@ -88,23 +111,14 @@ function \(Af::Factorization{Float64}, y::AbstractVecOrMat{Dual128})
 end
 
 """
-    \\(M::Array{Dual128,2}, y::AbstractVecOrMat)
+    \\(M::AbstractArray{Dual128,2}, y::AbstractVecOrMat)
 
 Backslash (factorization and backsubstitution) for Dual-valued matrix `M`.
 """
-function \(M::Array{Dual128,2}, y::AbstractVecOrMat)
-    return factorize(M) \ y
-end
+\(M::SparseMatrixCSC{<:Dual,<:Int}, y::AbstractVecOrMat) = factorize(M) \ y
+\(M::Array{<:Dual,2}, y::AbstractVecOrMat) = factorize(M) \ y
 
-"""
-    \\(M::SparseMatrixCSC{Dual128,<:Integer}, y::AbstractVecOrMat)
-
-Backslash (factorization and backsubstitution) for Dual-valued matrix `M`.
-"""
-function \(M::SparseMatrixCSC{Dual128,<:Integer}, y::AbstractVecOrMat)
-    return factorize(M) \ y
-end
-
+import Base.isapprox
 function isapprox(x::AbstractVecOrMat{Dual128}, y::AbstractVecOrMat{Dual128})
     bigx = [realpart.(x) dualpart.(x)]
     bigy = [realpart.(y) dualpart.(y)]
@@ -120,6 +134,6 @@ end
 isapprox(x::Float64, y::Dual128) = isapprox(dual(x), y)
 isapprox(x::Dual128, y::Float64) = isapprox(x, dual(y))
 
-export DualFactors, factorize, \
+export DualFactors, \
 
 end # module
