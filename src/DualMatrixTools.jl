@@ -14,7 +14,8 @@ which silently removes non-zeros from sparse matrices when multiplied by `ε`.)
 """
 function *(d::Dual, M::SparseMatrixCSC)
     i, j, v = findnz(M)
-    return sparse(i, j, d .* v)
+    m, n = size(M)
+    return sparse(i, j, d .* v, m, n)
 end
 export *
 
