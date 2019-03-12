@@ -93,8 +93,7 @@ See `DualFactors` for details.
 function \(M::DualFactors, y::AbstractVecOrMat{Float64})
     A, B = M.Af, M.B
     A⁻¹y = A \ y
-    A⁻¹BA⁻¹y = A \ (B * A⁻¹y)
-    return A⁻¹y - ε * A⁻¹BA⁻¹y
+    return A⁻¹y - ε * (A \ (B * A⁻¹y))
 end
 
 """
@@ -107,9 +106,7 @@ function \(M::DualFactors, y::AbstractVecOrMat{Dual128})
     a, b = realpart.(y), dualpart.(y)
     A, B = M.Af, M.B
     A⁻¹a = A \ a
-    A⁻¹BA⁻¹a = A \ (B * A⁻¹a)
-    A⁻¹b = A \ b
-    return A⁻¹a - ε * A⁻¹BA⁻¹a + ε * A⁻¹b
+    return A⁻¹a + ε * (A \ (b - B * A⁻¹a))
 end
 
 """
