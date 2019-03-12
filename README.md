@@ -74,7 +74,7 @@ julia> factorize!(Mf, M) # only Mf.B is updated
 ```
 If you want to update the real-valued factors too, use
 ```julia
-julia> factorize!(Mf, M, update_factors=true) # only Mf.B is updated
+julia> factorize!(Mf, M, update_factors=true) # Mf.B and Mf.Af are updated
 ```
 
 ## Citation
