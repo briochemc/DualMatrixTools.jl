@@ -1,7 +1,7 @@
 name = "DualMatrixTools"
 uuid = "31f4e45d-be81-5be7-b2dd-bc577b4f7be8"
 authors = ["Benoit Pasquier <pasquieb@uci.edu>"]
-version = "1.2.2"
+version = "1.2.3"
 
 [deps]
 DualNumbers = "fa6b7ba4-c1ee-5f82-b5fc-ecf0adba8f74"
