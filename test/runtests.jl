@@ -9,7 +9,7 @@ using DualNumbers, LinearAlgebra, SparseArrays, SuiteSparse
 
     x = randn(n)     # real-valued │
     y = randn(n)     # real-valued ├─ vector
-    z = x + ε * y    # dual-valued │
+    d = x + ε * y    # dual-valued │
 
     A = randn(n, n)  # real-valued │
     B = randn(n, n)  # real-valued ├─ matrix
@@ -19,12 +19,12 @@ using DualNumbers, LinearAlgebra, SparseArrays, SuiteSparse
         @testset "Testing `\\` without factorization" begin
             @test A \ (A * x) ≈ x
             @test M \ (M * x) ≈ x
-            @test A \ (A * z) ≈ z
-            @test M \ (M * z) ≈ z
+            @test A \ (A * d) ≈ d
+            @test M \ (M * d) ≈ d
             @test A * (A \ x) ≈ x
             @test M * (M \ x) ≈ x
-            @test A * (A \ z) ≈ z
-            @test M * (M \ z) ≈ z
+            @test A * (A \ d) ≈ d
+            @test M * (M \ d) ≈ d
         end
 
         @testset "Testing `\\` with factorization" begin
@@ -32,12 +32,12 @@ using DualNumbers, LinearAlgebra, SparseArrays, SuiteSparse
             Mf = factorize(M)
             @test Af \ (A * x) ≈ x
             @test Mf \ (M * x) ≈ x
-            @test Af \ (A * z) ≈ z
-            @test Mf \ (M * z) ≈ z
+            @test Af \ (A * d) ≈ d
+            @test Mf \ (M * d) ≈ d
             @test A * (Af \ x) ≈ x
             @test M * (Mf \ x) ≈ x
-            @test A * (Af \ z) ≈ z
-            @test M * (Mf \ z) ≈ z
+            @test A * (Af \ d) ≈ d
+            @test M * (Mf \ d) ≈ d
         end
     end
 
@@ -64,12 +64,12 @@ using DualNumbers, LinearAlgebra, SparseArrays, SuiteSparse
         @testset "Check that `\\` works without factorization" begin
             @test spA \ (spA * x) ≈ x
             @test spM \ (spM * x) ≈ x
-            @test spA \ (spA * z) ≈ z
-            @test spM \ (spM * z) ≈ z
+            @test spA \ (spA * d) ≈ d
+            @test spM \ (spM * d) ≈ d
             @test spA * (spA \ x) ≈ x
             @test spM * (spM \ x) ≈ x
-            @test spA * (spA \ z) ≈ z
-            @test spM * (spM \ z) ≈ z
+            @test spA * (spA \ d) ≈ d
+            @test spM * (spM \ d) ≈ d
         end
 
         @testset "Check that `\\` works with factorization" begin
@@ -77,12 +77,12 @@ using DualNumbers, LinearAlgebra, SparseArrays, SuiteSparse
             spMf = factorize(spM)
             @test spAf \ (spA * x) ≈ x
             @test spMf \ (spM * x) ≈ x
-            @test spAf \ (spA * z) ≈ z
-            @test spMf \ (spM * z) ≈ z
+            @test spAf \ (spA * d) ≈ d
+            @test spMf \ (spM * d) ≈ d
             @test spA * (spAf \ x) ≈ x
             @test spM * (spMf \ x) ≈ x
-            @test spA * (spAf \ z) ≈ z
-            @test spM * (spMf \ z) ≈ z
+            @test spA * (spAf \ d) ≈ d
+            @test spM * (spMf \ d) ≈ d
         end
     end
 
@@ -96,13 +96,13 @@ using DualNumbers, LinearAlgebra, SparseArrays, SuiteSparse
         # Adjoints / transposes
         x₂ = randn(n)     # real-valued │
         y₂ = randn(n)     # real-valued ├─ vector
-        z₂ = x₂ + ε * y₂    # dual-valued │
+        d₂ = x₂ + ε * y₂  # dual-valued │
 
         @eval begin
             x₂′ = $f($x₂)
             x′ = $f($x)
-            z₂′ = $f($z₂)
-            z′ = $f($z)
+            d₂′ = $f($d₂)
+            d′ = $f($d)
             A′  = $f($A)
             M′  = $f($M)
             spA′  = $f($spA)
@@ -112,9 +112,9 @@ using DualNumbers, LinearAlgebra, SparseArrays, SuiteSparse
         # Check that `\` works with adjoints
         @testset "Check that `\\` works with $f" begin
             @test (x₂′ * (A \ x)) ≈ (x′ * (A′ \ x₂))
-            @test (z₂′ * (M \ z)) ≈ (z′ * (M′ \ z₂))
+            @test (d₂′ * (M \ d)) ≈ (d′ * (M′ \ d₂))
             @test (x₂′ * (spA \ x)) ≈ (x′ * (spA′ \ x₂))
-            @test (z₂′ * (spM \ z)) ≈ (z′ * (spM′ \ z₂))
+            @test (d₂′ * (spM \ d)) ≈ (d′ * (spM′ \ d₂))
         end
 
         # Check that `\` works with adjoints of factorized versions
@@ -130,9 +130,9 @@ using DualNumbers, LinearAlgebra, SparseArrays, SuiteSparse
         end
         @testset "Check that factorized version with $f" begin
             @test (x₂′ * (Af \ x)) ≈ (x′ * (Af′ \ x₂))
-            @test (z₂′ * (Mf \ z)) ≈ (z′ * (Mf′ \ z₂))
+            @test (d₂′ * (Mf \ d)) ≈ (d′ * (Mf′ \ d₂))
             @test (x₂′ * (spAf \ x)) ≈ (x′ * (spAf′ \ x₂))
-            @test (z₂′ * (spMf \ z)) ≈ (z′ * (spMf′ \ z₂))
+            @test (d₂′ * (spMf \ d)) ≈ (d′ * (spMf′ \ d₂))
         end
     end
 
@@ -147,4 +147,4 @@ using DualNumbers, LinearAlgebra, SparseArrays, SuiteSparse
     end
 end
 
-println("All the DualMatrixTools tests have passed!")
+println("DualMatrixTools tests finished!")

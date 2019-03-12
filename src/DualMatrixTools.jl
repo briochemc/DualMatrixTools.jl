@@ -59,7 +59,7 @@ for f in (:lu, :qr, :cholesky, :factorize)
     end
 end
 
-# Inpace factorization for the case where the real part is already stored
+# In-place factorization for the case where the real part is already stored
 function factorize!(Mf::DualFactors, M; update_factors = false)
     Mf.B = dualpart.(M)
     if update_factors
@@ -128,6 +128,7 @@ Backslash (factorization and backsubstitution) for Dual-valued matrix `M`.
 """
 \(M::SparseMatrixCSC{<:Dual,<:Int}, y::AbstractVecOrMat) = factorize(M) \ y
 \(M::Array{<:Dual,2}, y::AbstractVecOrMat) = factorize(M) \ y
+export \
 
 import Base.isapprox
 function isapprox(x::AbstractVecOrMat{Dual128}, y::AbstractVecOrMat{Dual128})
@@ -144,7 +145,5 @@ function isapprox(x::Dual128, y::Dual128)
 end
 isapprox(x::Float64, y::Dual128) = isapprox(dual(x), y)
 isapprox(x::Dual128, y::Float64) = isapprox(x, dual(y))
-
-export DualFactors, \
 
 end # module
