@@ -41,6 +41,17 @@ using DualNumbers, LinearAlgebra, SparseArrays, SuiteSparse
         end
     end
 
+    @testset "Inplace factorization" begin
+        Mf1 =factorize(M)
+        Mf2 = factorize(M)
+        factorize!(Mf2, 2M)
+        @test Mf2.Af == Mf1.Af
+        @test Mf2.B == 2Mf1.B
+        factorize!(Mf2, 2M, update_factors=true)
+        @test Mf2.Af ≠ Mf1.Af
+        @test Mf2.B == 2Mf1.B
+    end
+
     @testset "Testing sparse matrices" begin
         spA = sparse(A)  # │
         spB = sparse(B)  # ├─ sparse matrices
@@ -133,7 +144,6 @@ using DualNumbers, LinearAlgebra, SparseArrays, SuiteSparse
         @test 1.0 ≈ (1.0 + 0ε)
 
         @test ~(M ≈ M .+ ε)
-
     end
 end
 

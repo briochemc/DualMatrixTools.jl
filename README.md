@@ -37,7 +37,7 @@ its inverse is given by
 
 Therefore, only the inverse of <a href="https://www.codecogs.com/eqnedit.php?latex=\fn_phv&space;A" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\fn_phv&space;A" title="A" /></a> is required to evaluate the inverse of <a href="https://www.codecogs.com/eqnedit.php?latex=\fn_phv&space;M" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\fn_phv&space;M" title="M" /></a>.
 This package makes available a `DualFactors` type which containts (i) the factors of <a href="https://www.codecogs.com/eqnedit.php?latex=\fn_phv&space;A" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\fn_phv&space;A" title="A" /></a> and (ii) the non-real part, <a href="https://www.codecogs.com/eqnedit.php?latex=\fn_phv&space;B" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\fn_phv&space;B" title="B" /></a>.
-It also overloads `factorize` to create an instance of `DualFactors` (when invoked with a dual-valued matrix), which can then be called with `\` to efficiently solve dual-valued linear systems of the type <a href="https://www.codecogs.com/eqnedit.php?latex=\fn_phv&space;M&space;x&space;=&space;b" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\fn_phv&space;M&space;x&space;=&space;b" title="M x = b" /></a>. 
+It also overloads `factorize` to create an instance of `DualFactors` (when invoked with a dual-valued matrix), which can then be called with `\` to efficiently solve dual-valued linear systems of the type <a href="https://www.codecogs.com/eqnedit.php?latex=\fn_phv&space;M&space;x&space;=&space;b" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\fn_phv&space;M&space;x&space;=&space;b" title="M x = b" /></a>.
 
 This package should be useful for autodifferentiation of functions that use `\`.
 Note the same idea extends to hyper dual numbers (see the [HyperDualMatrixTools.jl](https://github.com/briochemc/HyperDualMatrixTools.jl) package).
@@ -48,7 +48,7 @@ Note the same idea extends to hyper dual numbers (see the [HyperDualMatrixTools.
     ```julia
     julia> M = A + ε * B
     ```
-    
+
 2. Apply `\` to solve systems of the type `M * x = b`
     - without factorization:
         ```julia
@@ -58,11 +58,24 @@ Note the same idea extends to hyper dual numbers (see the [HyperDualMatrixTools.
     - or better, with prior factorization:
         ```julia
         julia> Mf = factorize(M)
-        
+
         julia> x = Mf \ b
         ```
         (This is better in case you want to solve for another `b`!)
 
+## Advanced usage
+
+In the context of iterative processes with multiple factorizations and backsubstitutions, you may want to propagate dual-valued numbers while leveraging (potentially) the fact the real part of the matrices to be factorized remains the same throughout.
+This package provides an in-place `factorize!`, with a flag to update (or not) the factors.
+Usage is straightforward.
+By default, `factorize!` does *not* update the factors
+```julia
+julia> factorize!(Mf, M) # only Mf.B is updated
+```
+If you want to update the real-valued factors too, use
+```julia
+julia> factorize!(Mf, M, update_factors=true) # only Mf.B is updated
+```
 
 ## Citation
 

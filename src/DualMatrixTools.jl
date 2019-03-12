@@ -59,6 +59,16 @@ for f in (:lu, :qr, :cholesky, :factorize)
     end
 end
 
+# Inpace factorization for the case where the real part is already stored
+function factorize!(Mf::DualFactors, M; update_factors = false)
+    Mf.B = dualpart.(M)
+    if update_factors
+        Mf.Af = factorize(realpart.(M))
+    end
+    return Mf
+end
+export factorize!
+
 # Adjoint and transpose definitions for `DualFactors`
 for f in (:adjoint, :transpose)
     @eval begin
