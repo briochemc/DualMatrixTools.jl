@@ -66,15 +66,15 @@ Note the same idea extends to hyper dual numbers (see the [HyperDualMatrixTools.
 ## Advanced usage
 
 In the context of iterative processes with multiple factorizations and backsubstitutions, you may want to propagate dual-valued numbers while leveraging (potentially) the fact the real part of the matrices to be factorized remains the same throughout.
-This package provides an in-place `factorize!`, with a flag to update (or not) the factors.
+This package provides an in-place `factorize`, with a flag to update (or not) the factors.
 Usage is straightforward.
-By default, `factorize!` does *not* update the factors
+By default, `factorize` does *not* update the factors
 ```julia
-julia> factorize!(Mf, M) # only Mf.B is updated
+julia> factorize(Mf, M) # only Mf.B is updated
 ```
 If you want to update the real-valued factors too, use
 ```julia
-julia> factorize!(Mf, M, update_factors=true) # Mf.B and Mf.Af are updated
+julia> factorize(Mf, M, update_factors=true) # Mf.B and Mf.Af are updated
 ```
 
 ## Citation
