@@ -13,8 +13,8 @@
   <a href="https://travis-ci.org/briochemc/DualMatrixTools.jl">
     <img alt="Build Status" src="https://travis-ci.org/briochemc/DualMatrixTools.jl.svg?branch=master">
   </a>
-  <a href='https://coveralls.io/github/briochemc/DualMatrixTools.jl'>
-    <img src='https://coveralls.io/repos/github/briochemc/DualMatrixTools.jl/badge.svg' alt='Coverage Status' />
+  <a href='https://coveralls.io/github/briochemc/DualMatrixTools.jl?branch=master'>
+    <img src='https://coveralls.io/repos/github/briochemc/DualMatrixTools.jl/badge.svg?branch=master' alt='Coverage Status' />    
   </a>
   <a href="https://codecov.io/gh/briochemc/DualMatrixTools.jl">
     <img src="https://codecov.io/gh/briochemc/DualMatrixTools.jl/branch/master/graph/badge.svg" />
