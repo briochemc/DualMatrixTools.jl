@@ -1,3 +1,5 @@
+<img src="https://user-images.githubusercontent.com/4486578/59233116-77ec4a00-8c2a-11e9-87f3-012137752347.png" title="Solving a dual-valued linear system" align="center" width="100%"/>
+
 # DualMatrixTools.jl
 
 <p>
