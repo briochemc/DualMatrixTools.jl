@@ -45,7 +45,7 @@ var documenterSearchIndex = {"docs": [
     "page": "DualMatrixTools.jl Documentation",
     "title": "LinearAlgebra.factorize",
     "category": "function",
-    "text": "LinearAlgebra.factorize(M::SparseMatrixCSC{<:Dual,<:Int})\n\nInvokes LinearAlgebra.factorize on just the real part of M and stores it along with the dual part into a DualFactors object.\n\n\n\n\n\nLinearAlgebra.factorize(M::Array{<:Dual,2})\n\nInvokes LinearAlgebra.factorize on just the real part of M and stores it along with the dual part into a DualFactors object.\n\n\n\n\n\n"
+    "text": "factorize(M::SparseMatrixCSC{<:Dual,<:Int})\n\nInvokes factorize on just the real part of M and stores it along with the dual part into a DualFactors object.\n\n\n\n\n\nfactorize(M::Array{<:Dual,2})\n\nInvokes factorize on just the real part of M and stores it along with the dual part into a DualFactors object.\n\n\n\n\n\n"
 },
 
 {
