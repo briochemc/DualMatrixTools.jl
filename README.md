@@ -35,15 +35,15 @@ This package provides an overloaded `factorize` and `\` that work with dual-valu
 It uses the dual type defined by the [DualNumbers.jl](https://github.com/JuliaDiff/DualNumbers.jl) package.
 The idea is that for a dual-valued matrix
 
-<a href="https://www.codecogs.com/eqnedit.php?latex=\fn_phv&space;M&space;=&space;A&space;&plus;&space;\varepsilon&space;B" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\fn_phv&space;M&space;=&space;A&space;&plus;&space;\varepsilon&space;B" title="M = A + \varepsilon B" /></a>,
+*M* = *A* + *ϵ* *B*
 
-its inverse is given by
+its inverse is
 
-<a href="https://www.codecogs.com/eqnedit.php?latex=\fn_phv&space;M^{-1}&space;=&space;(I&space;-&space;\varepsilon&space;A^{-1}&space;B)&space;A^{-1}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\fn_phv&space;M^{-1}&space;=&space;(I&space;-&space;\varepsilon&space;A^{-1}&space;B)&space;A^{-1}" title="M^{-1} = (I - \varepsilon A^{-1} B) A^{-1}" /></a>.
+*M*<sup>-1</sup> = (*I* - *ε* *A*<sup>-1</sup> *B*) *A*<sup>-1</sup>
 
-Therefore, only the inverse of <a href="https://www.codecogs.com/eqnedit.php?latex=\fn_phv&space;A" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\fn_phv&space;A" title="A" /></a> is required to evaluate the inverse of <a href="https://www.codecogs.com/eqnedit.php?latex=\fn_phv&space;M" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\fn_phv&space;M" title="M" /></a>.
-This package makes available a `DualFactors` type which containts (i) the factors of <a href="https://www.codecogs.com/eqnedit.php?latex=\fn_phv&space;A" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\fn_phv&space;A" title="A" /></a> and (ii) the non-real part, <a href="https://www.codecogs.com/eqnedit.php?latex=\fn_phv&space;B" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\fn_phv&space;B" title="B" /></a>.
-It also overloads `factorize` to create an instance of `DualFactors` (when invoked with a dual-valued matrix), which can then be called with `\` to efficiently solve dual-valued linear systems of the type <a href="https://www.codecogs.com/eqnedit.php?latex=\fn_phv&space;M&space;x&space;=&space;b" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\fn_phv&space;M&space;x&space;=&space;b" title="M x = b" /></a>.
+Therefore, only the inverse of *A* is required to evaluate the inverse of *M*.
+This package makes available a `DualFactors` type which containts (i) the factors of *A* and (ii) the non-real part, *B*.
+It also overloads `factorize` to create an instance of `DualFactors` (when invoked with a dual-valued matrix), which can then be called with `\` to efficiently solve dual-valued linear systems of the type *M* *x* = *b*.
 
 This package should be useful for autodifferentiation of functions that use `\`.
 Note the same idea extends to hyper dual numbers (see the [HyperDualMatrixTools.jl](https://github.com/briochemc/HyperDualMatrixTools.jl) package).
@@ -87,4 +87,3 @@ julia> factorize(Mf, M, update_factors=true) # Mf.B and Mf.Af are updated
 
 If you use this package, please cite it!
 You can either directly use the bibtex entry, [CITATION.bib](CITATION.bib), or go to the [Zenodo record of the package](https://doi.org/10.5281/zenodo.1493571) and export the citation from there (the "Export" box at the bottom of that page).
-
