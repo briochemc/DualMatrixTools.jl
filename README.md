@@ -20,13 +20,13 @@
 
 <p>
   <a href="">
-    <img src="https://img.shields.io/github/workflow/status/briochemc/DualMatrixTools.jl/Mac%20OS%20X?label=&logo=Apple&logoColor=white&style=flat-square">
+    <img src="https://img.shields.io/github/workflow/status/briochemc/DualMatrixTools.jl/Mac%20OS%20X?label=OSX&logo=Apple&logoColor=white&style=flat-square">
   </a>
   <a href="">
-    <img src="https://img.shields.io/github/workflow/status/briochemc/DualMatrixTools.jl/Linux?label=&logo=Linux&logoColor=white&style=flat-square">
+    <img src="https://img.shields.io/github/workflow/status/briochemc/DualMatrixTools.jl/Linux?label=Linux&logo=Linux&logoColor=white&style=flat-square">
   </a>
   <a href="">
-    <img src="https://img.shields.io/github/workflow/status/briochemc/DualMatrixTools.jl/Windows?label=&logo=Windows&logoColor=white&style=flat-square">
+    <img src="https://img.shields.io/github/workflow/status/briochemc/DualMatrixTools.jl/Windows?label=Windows&logo=Windows&logoColor=white&style=flat-square">
   </a>
   <a href="https://codecov.io/gh/briochemc/AIBECS.jl">
     <img src="https://img.shields.io/codecov/c/github/briochemc/AIBECS.jl/master?label=Codecov&logo=codecov&logoColor=white&style=flat-square">
