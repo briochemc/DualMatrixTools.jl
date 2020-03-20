@@ -2,33 +2,36 @@
 
 # DualMatrixTools.jl
 
+
 <p>
-  <a href="https://doi.org/10.5281/zenodo.1493571">
-    <img src="https://zenodo.org/badge/DOI/10.5281/zenodo.1493571.svg" alt="DOI">
-  </a>
-  <a href="https://briochemc.github.io/DualMatrixTools.jl/stable">
-    <img src=https://img.shields.io/badge/docs-stable-blue.svg>
-  </a>
-  <a href="https://travis-ci.com/briochemc/DualMatrixTools.jl">
-    <img alt="Build Status" src="https://travis-ci.com/briochemc/DualMatrixTools.jl.svg?branch=master">
-  </a>
-  <a href="https://travis-ci.org/briochemc/DualMatrixTools.jl">
-    <img alt="Build Status" src="https://travis-ci.org/briochemc/DualMatrixTools.jl.svg?branch=master">
-  </a>
-  <a href='https://coveralls.io/github/briochemc/DualMatrixTools.jl?branch=master'>
-    <img src='https://coveralls.io/repos/github/briochemc/DualMatrixTools.jl/badge.svg?branch=master' alt='Coverage Status' />    
-  </a>
-  <a href="https://codecov.io/gh/briochemc/DualMatrixTools.jl">
-    <img src="https://codecov.io/gh/briochemc/DualMatrixTools.jl/branch/master/graph/badge.svg" />
-  </a>
-  <a href="https://github.com/briochemc/DualMatrixTools.jl/blob/master/LICENSE">
-    <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg">
+  <a href="https://briochemc.github.io/DualMatrixTools.jl/stable/">
+    <img src=https://img.shields.io/badge/docs-stable-important.svg?style=flat-square&label=Documentation&logo=Read%20the%20Docs>
   </a>
 </p>
 
-[![Linux](https://github.com/briochemc/DualMatrixTools.jl/workflows/Linux/badge.svg?branch=master)](https://github.com/briochemc/DualMatrixTools.jl/actions)
-[![Mac OS X](https://github.com/briochemc/DualMatrixTools.jl/workflows/Mac%20OS%20X/badge.svg?branch=master)](https://github.com/briochemc/DualMatrixTools.jl/actions)
-[![Windows](https://github.com/briochemc/DualMatrixTools.jl/workflows/Windows/badge.svg?branch=master)](https://github.com/briochemc/DualMatrixTools.jl/actions)
+<p>
+  <a href="https://doi.org/10.5281/zenodo.1493571">
+    <img src="http://img.shields.io/badge/DOI-10.5281%20%2F%20zenodo.1493571-blue.svg?&style=flat-square">
+  </a>
+  <a href="https://github.com/briochemc/DualMatrixTools.jl/blob/master/LICENSE">
+    <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-blue.svg?&style=flat-square">
+  </a>
+</p>
+
+<p>
+  <a href="">
+    <img src="https://img.shields.io/github/workflow/status/briochemc/DualMatrixTools.jl/Mac%20OS%20X?label=&logo=Apple&logoColor=white&style=flat-square">
+  </a>
+  <a href="">
+    <img src="https://img.shields.io/github/workflow/status/briochemc/DualMatrixTools.jl/Linux?label=&logo=Linux&logoColor=white&style=flat-square">
+  </a>
+  <a href="">
+    <img src="https://img.shields.io/github/workflow/status/briochemc/DualMatrixTools.jl/Windows?label=&logo=Windows&logoColor=white&style=flat-square">
+  </a>
+  <a href="https://codecov.io/gh/briochemc/AIBECS.jl">
+    <img src="https://img.shields.io/codecov/c/github/briochemc/AIBECS.jl/master?label=Codecov&logo=codecov&logoColor=white&style=flat-square">
+  </a>
+</p>
 
 This package provides an overloaded `factorize` and `\` that work with dual-valued arrays.
 
