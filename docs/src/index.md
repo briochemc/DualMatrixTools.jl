@@ -7,7 +7,7 @@ It is essentially based on the dual type defined by the [DualNumbers.jl](https:/
 ## Motivation
 
 The idea is that for a dual-valued matrix ``M = A + \varepsilon B``, its inverse is given by
-``M^{-1} = (I - \varepsilon_1 A^{-1} B) A^{-1}``.
+``M^{-1} = (I - \varepsilon A^{-1} B) A^{-1}``.
 Therefore, only the inverse of ``A`` is required to evaluate the inverse of ``M``.
 This package should be useful for evaluation of first derivatives of functions that use `\` (e.g., with iterative solvers).
 
@@ -19,43 +19,27 @@ Finally, [DualMatrixTools.jl](https://github.com/briochemc/DualMatrixTools.jl.gi
 
 ## Usage
 
-```@meta
-DocTestSetup = quote
-    using DualMatrixTools
-end
-```
+Create your dual-valued matrix `M`:
 
-Create your hyperdual-valued matrix `M`:
-```jldoctest usage
+```julia
+DualMatrixTools
 n = 4
 A, B = rand(n, n), randn(n, n)
 M = A + ε * B
-typeof(M)
-
-# output
-
-Array{DualNumbers.Dual{Float64},2}
 ```
 
 Factorize `M`:
-```jldoctest usage
+
+```julia
 Mf = factorize(M)
-typeof(Mf)
-
-# output
-
-DualFactors
 ```
 
 Apply `\` to solve systems of the type `M * x = y`
-```jldoctest usage
+
+```julia
 y = rand(n, 2) * [1.0, ε]
 x = Mf \ y
 M * x ≈ y
-
-# output
-
-true
 ```
 
 ## Functions
@@ -73,5 +57,3 @@ factorize
 ```@docs
 DualFactors
 ```
-
-
