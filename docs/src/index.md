@@ -1,6 +1,6 @@
 # DualMatrixTools.jl Documentation
 
-This package provides an overloaded `factorize` and `\` that work with dual-valued arrays.
+This package provides an overloaded `factorize` and `\` that work with dual-valued matrices and vectors.
 
 It is essentially based on the dual type defined by the [DualNumbers.jl](https://github.com/JuliaDiff/DualNumbers.jl) package.
 
