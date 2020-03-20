@@ -19,13 +19,13 @@
 </p>
 
 <p>
-  <a href="">
+  <a href="https://github.com/briochemc/DualMatrixTools.jl/actions">
     <img src="https://img.shields.io/github/workflow/status/briochemc/DualMatrixTools.jl/Mac%20OS%20X?label=OSX&logo=Apple&logoColor=white&style=flat-square">
   </a>
-  <a href="">
+  <a href="https://github.com/briochemc/DualMatrixTools.jl/actions">
     <img src="https://img.shields.io/github/workflow/status/briochemc/DualMatrixTools.jl/Linux?label=Linux&logo=Linux&logoColor=white&style=flat-square">
   </a>
-  <a href="">
+  <a href="https://github.com/briochemc/DualMatrixTools.jl/actions">
     <img src="https://img.shields.io/github/workflow/status/briochemc/DualMatrixTools.jl/Windows?label=Windows&logo=Windows&logoColor=white&style=flat-square">
   </a>
   <a href="https://codecov.io/gh/briochemc/AIBECS.jl">
