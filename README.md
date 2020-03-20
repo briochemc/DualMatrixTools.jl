@@ -35,7 +35,7 @@ This package provides an overloaded `factorize` and `\` that work with dual-valu
 It uses the dual type defined by the [DualNumbers.jl](https://github.com/JuliaDiff/DualNumbers.jl) package.
 The idea is that for a dual-valued matrix
 
-*M* = *A* + *ϵ* *B*
+*M* = *A* + *ε* *B*
 
 its inverse is
 
