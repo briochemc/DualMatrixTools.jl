@@ -1,7 +1,7 @@
 name = "DualMatrixTools"
 uuid = "31f4e45d-be81-5be7-b2dd-bc577b4f7be8"
 authors = ["Benoit Pasquier <pasquieb@uci.edu>"]
-version = "1.2.5"
+version = "1.2.6"
 
 [deps]
 DualNumbers = "fa6b7ba4-c1ee-5f82-b5fc-ecf0adba8f74"
@@ -12,3 +12,10 @@ Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 
 [compat]
 julia = "≥ 0.7.0"
+DualNumbers = "0.6"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
