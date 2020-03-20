@@ -26,6 +26,10 @@
   </a>
 </p>
 
+[![Linux](https://github.com/briochemc/DualMatrixTools.jl/workflows/Linux/badge.svg?branch=master)](https://github.com/briochemc/DualMatrixTools.jl/actions)
+[![Mac OS X](https://github.com/briochemc/DualMatrixTools.jl/workflows/Mac%20OS%20X/badge.svg?branch=master)](https://github.com/briochemc/DualMatrixTools.jl/actions)
+[![Windows](https://github.com/briochemc/DualMatrixTools.jl/workflows/Windows/badge.svg?branch=master)](https://github.com/briochemc/DualMatrixTools.jl/actions)
+
 This package provides an overloaded `factorize` and `\` that work with dual-valued arrays.
 
 It uses the dual type defined by the [DualNumbers.jl](https://github.com/JuliaDiff/DualNumbers.jl) package.
