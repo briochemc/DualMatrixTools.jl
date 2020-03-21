@@ -28,8 +28,8 @@
   <a href="https://github.com/briochemc/DualMatrixTools.jl/actions">
     <img src="https://img.shields.io/github/workflow/status/briochemc/DualMatrixTools.jl/Windows?label=Windows&logo=Windows&logoColor=white&style=flat-square">
   </a>
-  <a href="https://codecov.io/gh/briochemc/AIBECS.jl">
-    <img src="https://img.shields.io/codecov/c/github/briochemc/AIBECS.jl/master?label=Codecov&logo=codecov&logoColor=white&style=flat-square">
+  <a href="https://codecov.io/gh/briochemc/DualMatrixTools.jl">
+    <img src="https://img.shields.io/codecov/c/github/briochemc/DualMatrixTools.jl/master?label=Codecov&logo=codecov&logoColor=white&style=flat-square">
   </a>
 </p>
 
